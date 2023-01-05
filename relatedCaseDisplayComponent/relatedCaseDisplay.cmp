@@ -1,0 +1,50 @@
+<aura:component controller="RelatedCaseDisplayController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="closedCaseList" type="case[]"/>
+    <aura:attribute name="allCaseList" type="case[]"/>
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:attribute name = "returnIndex" type="string"/>
+    <aura:handler name="pc" event="c:parentChildCaseCommunication" action="{!c.parentComponentEvent}"/>
+    
+    <div>
+       
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <aura:if isTrue="{!not(empty(v.closedCaseList))}">
+               
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-label="Example table of Opportunities with a single column">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Case Number">Case Number</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Status">Status</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Origin">Origin</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Delete">Delete</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.closedCaseList}" var="con" indexVar="index">
+                            
+                            <c:closedCaseDisplay singCloseCaseRec ="{!con}" caseIndex="{!index}" allCaseList = "{!v.allCaseList}" closedCaseList="{!v.closedCaseList}"/>
+                        </aura:iteration> 
+                    </tbody>
+                </table>
+            </aura:if>
+        </div>
+        
+        <lightning:button variant="Brand" label="All Case" title="All Case" onclick="{!c.openPopup}"/>
+    </div>
+    
+    
+    
+    <c:allCaseDisplay allCaseList = "{!v.allCaseList}" isModalOpen="{!v.isModalOpen}"/>
+    
+    
+    
+</aura:component>

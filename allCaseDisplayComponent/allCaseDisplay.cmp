@@ -1,0 +1,69 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="allCaseList" type="case[]"/>
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:if isTrue="{!v.isModalOpen}" >    
+        <!-- Modal/Popup Box starts here-->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">All Cases</h2>
+                </header>
+                <!--Modal/Popup Box Body-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered" aria-label="Example table of Opportunities with a single column">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Case Number">Case Number</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Status">Status</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Origin">Origin</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.allCaseList}" var="con" indexVar="index">
+                                <tr class="slds-hint-parent">
+                                    <td data-label="Case Number">
+                                        <div class="slds-truncate" title="Case Number">
+                                            {!con.CaseNumber}
+                                        </div>
+                                    </td>
+                                    <td data-label="Status">
+                                        <div class="slds-truncate" title="Status">
+                                            {!con.Status}
+                                        </div>
+                                    </td>
+                                    <td data-label="Origin">
+                                        <div class="slds-truncate" title="Email">
+                                            {!con.Origin}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:iteration> 
+                        </tbody>
+                    </table>
+                    
+                    <aura:set attribute="else">
+                        There is no related Contacts
+                    </aura:set>
+                    
+                </div>
+                <!--Modal/Popup Box Footer-->
+                <footer class="slds-modal__footer">
+                    
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

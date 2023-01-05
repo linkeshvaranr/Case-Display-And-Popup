@@ -1,0 +1,13 @@
+public with sharing class RelatedCaseDisplayController {
+    @AuraEnabled
+    public static List<Case> returnRelatedCaseRecords(Id accId){
+        return [SELECT Id, CaseNumber, Status, Origin FROM Case WHERE AccountId =:accId AND Origin != null];
+        
+    }
+    @AuraEnabled
+    public static void deleteCaseRecord(Case caseRec){
+        
+        delete caseRec;
+    }
+
+}

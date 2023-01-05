@@ -1,0 +1,40 @@
+<aura:component controller="ClosedCaseDisplayController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name ="closedCaseList" type ="case[]"/>
+    <aura:attribute name ="allCaseList" type ="case[]"/>
+    <aura:attribute name ="singCloseCaseRec" type ="Case"/>
+    <aura:attribute name="caseIndex" type="Integer" />
+	<aura:registerEvent name="pc" type="c:parentChildCaseCommunication" />  
+    
+    <aura:attribute name ="currentlyDeletedCaseId" type = "String"/>
+                <tr class="slds-hint-parent">
+                    <td data-label="Case Number">
+                        <div class="slds-truncate" title="Case Number">
+                            {!v.singCloseCaseRec.CaseNumber} 
+                            
+                        </div>
+                    </td>
+                    <td data-label="Status">
+                        <div class="slds-truncate" title="Status">
+                            {!v.singCloseCaseRec.Status}
+                        </div>
+                    </td>
+                    <td data-label="Origin">
+                        <div class="slds-truncate" title="Email">
+                            {!v.singCloseCaseRec.Origin}
+                        </div>
+                    </td>
+                    <td >
+                        <div class="slds-truncate" title="Delete" >
+                            <a data-record= "{!v.caseIndex}" onclick="{!c.deleteCase}" tabindex="-1"> 
+                                <lightning:icon iconName="action:delete" size="xx-small" title="delete"/>
+                            </a>
+                            
+                            <!--<lightning:button variant="Brand" label="delete" title="delete" onclick="{!c.deleteCase}" />-->
+                            
+                        </div>
+                    </td>
+                </tr>
+    <aura:set attribute="else">
+        There is no related Contacts
+    </aura:set>
+</aura:component>
